@@ -3,6 +3,7 @@ package com.neosoft.EIS.service;
 import com.neosoft.EIS.collection.Headmaster;
 import com.neosoft.EIS.repository.HeadmasterRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class HeadmasterService {
         this.headmasterRepository = headmasterRepository;
     }
 
-    public Headmaster saveHeadmaster(Headmaster headmaster) {
+    public Headmaster saveHeadmaster(Headmaster headmaster, MultipartFile photo) {
         return headmasterRepository.save(headmaster);
     }
 

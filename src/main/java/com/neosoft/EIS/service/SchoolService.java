@@ -44,4 +44,8 @@ public class SchoolService {
     public List<SchoolDto> findAllSchoolsCoordinates() {
         return schoolRepository.findSchoolsCoordinates();
     }
+
+    public List<SchoolDto> findAllProvinceMappedSchools(String province) {
+        return schoolRepository.findProvinceSchoolsCoordinates(province);
+    }
 }

@@ -4,6 +4,7 @@ import com.neosoft.EIS.collection.DTO.SchoolDto;
 import com.neosoft.EIS.collection.School;
 import com.neosoft.EIS.service.SchoolService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,8 +40,13 @@ public class SchoolController {
     public List<School> findSchoolByName(@RequestParam String schoolName){ // display schools as you type
         return schoolService.findSchoolByName(schoolName);
     }
-    @GetMapping("/schoolCoordinates")
+    @GetMapping("/schoolCoordinates") //display all schools in Zimbabwe on the map
     public List<SchoolDto> findSchoolsByCoordinates(){
         return  schoolService.findAllSchoolsCoordinates();
     }
+    @GetMapping("/mappedSchoolsInProvince") // when province from drop box is chosen all schools are displayed
+    public List<SchoolDto> findSchoolsByInProvinceCoordinates(@RequestParam String province){
+        return  schoolService.findAllProvinceMappedSchools(province);
+    }
+
 }

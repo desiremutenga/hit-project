@@ -6,6 +6,9 @@ public interface SchoolDto {
 
         String get_id();
         GeoJsonPoint getCo_ordinates();
+        String getSchoolType();
+        String getProvince();
+        String getDistrict();
         // Other getter methods...
     }
 

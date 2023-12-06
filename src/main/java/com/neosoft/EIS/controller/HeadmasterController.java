@@ -3,6 +3,7 @@ package com.neosoft.EIS.controller;
 import com.neosoft.EIS.collection.Headmaster;
 import com.neosoft.EIS.service.HeadmasterService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class HeadmasterController {
     }
 
     @PostMapping("/headmasters")
-    public Headmaster saveHeadmasters(@RequestBody Headmaster headmaster){
-        return headmasterService.saveHeadmaster(headmaster);
+    public Headmaster saveHeadmasters(@RequestBody Headmaster headmaster, @RequestParam MultipartFile photo){
+        return headmasterService.saveHeadmaster(headmaster,photo);
     }
     @GetMapping("/headmasters")
     public List<Headmaster> getHeadmasters(){

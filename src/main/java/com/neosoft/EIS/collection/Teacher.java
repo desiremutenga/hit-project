@@ -27,7 +27,7 @@ public class Teacher {
     private Boolean inService;
     private int enrollmentYear;
     private LocalDate DOB; // populate age on the front end
-    private String photo;
+    private byte[] photo;
 
 
 
