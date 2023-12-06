@@ -1,0 +1,13 @@
+package com.neosoft.EIS.collection;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Furniture {
+    private int totalDesks;
+    private int totalChairs;
+}
