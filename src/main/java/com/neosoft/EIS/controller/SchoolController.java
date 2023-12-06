@@ -1,9 +1,8 @@
 package com.neosoft.EIS.controller;
 
+import com.neosoft.EIS.collection.DTO.SchoolDto;
 import com.neosoft.EIS.collection.School;
 import com.neosoft.EIS.service.SchoolService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +40,7 @@ public class SchoolController {
         return schoolService.findSchoolByName(schoolName);
     }
     @GetMapping("/schoolCoordinates")
-    public List<GeoJsonPoint> findSchoolsByCoordinates(){
-        System.out.println("hey");
-        return schoolService.findAllSchoolsCoordinates();
+    public List<SchoolDto> findSchoolsByCoordinates(){
+        return  schoolService.findAllSchoolsCoordinates();
     }
 }

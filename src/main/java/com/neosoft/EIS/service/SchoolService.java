@@ -1,9 +1,9 @@
 package com.neosoft.EIS.service;
 
+import com.neosoft.EIS.collection.DTO.SchoolDto;
 import com.neosoft.EIS.collection.School;
 import com.neosoft.EIS.repository.SchoolRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +11,10 @@ import java.util.List;
 @Service
 public class SchoolService {
     private final SchoolRepository schoolRepository;
-    public SchoolService(SchoolRepository schoolRepository){
+    final private MongoTemplate mongoTemplate;
+    public SchoolService(SchoolRepository schoolRepository,MongoTemplate mongoTemplate){
         this.schoolRepository = schoolRepository;
+        this.mongoTemplate =mongoTemplate;
     }
     public List<School> getAllSchools() {
         School school = new School();
@@ -39,7 +41,7 @@ public class SchoolService {
         return schoolRepository.findBySchoolNameIgnoreCase(name);
     }
 
-    public List<GeoJsonPoint> findAllSchoolsCoordinates() {
+    public List<SchoolDto> findAllSchoolsCoordinates() {
         return schoolRepository.findSchoolsCoordinates();
     }
 }
