@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/eis")
+@CrossOrigin
 public class TeacherController {
 
     final private TeacherService teacherService;
@@ -19,7 +20,7 @@ public class TeacherController {
     public Teacher saveTeacher(@RequestBody Teacher teacher){
         return  teacherService.saveTeacher(teacher);
     }
-    @GetMapping("/searchTeachers")
+    @GetMapping("/searchTeacherById")
     public Teacher getTeacherByEcNumber(@RequestParam("_id") String ecNumber){// display schools as you type
         return  teacherService.searchTeacherWithEcNumber(ecNumber);
 
@@ -36,5 +37,12 @@ public class TeacherController {
         return  teacherService.searchTeacherBySubjectTaught(subjectTaught);
 
     }
-
+    @GetMapping("/getTeacherBySchool")
+    public List<Teacher> getTeacherBySchool(@RequestParam String currentSchool){
+        return teacherService.getTeacherBySchool(currentSchool);
+    }
+    @GetMapping("/getAllTeachers")
+    public List<Teacher> getAllTeachers(){
+        return teacherService.getAllTeachers();
+    }
 }

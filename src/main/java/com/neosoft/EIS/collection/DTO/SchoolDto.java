@@ -9,6 +9,7 @@ public interface SchoolDto {
         String getSchoolType();
         String getProvince();
         String getDistrict();
+        String getAssets();
         // Other getter methods...
     }
 

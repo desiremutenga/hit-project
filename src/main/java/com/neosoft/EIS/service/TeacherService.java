@@ -30,4 +30,12 @@ public class TeacherService {
     public List<Teacher> searchTeacherBySubjectTaught(String subjectTaught) {
         return teacherRepository.findBySubjectTaughtSubjectIgnoreCase(subjectTaught);
     }
+
+    public List<Teacher> getTeacherBySchool(String currentSchool) {
+        return  teacherRepository.findByCurrentSchoolSchoolNameIgnoreCase(currentSchool);
+    }
+
+    public List<Teacher> getAllTeachers() {
+        return teacherRepository.findAll();
+    }
 }

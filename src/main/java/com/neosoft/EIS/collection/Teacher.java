@@ -22,7 +22,6 @@ public class Teacher {
     private char gender;
     private List<Subject> subjectTaught;
     private List<Qualifications> qualifications;
-    @DBRef
     private School currentSchool;
     private Boolean inService;
     private int enrollmentYear;

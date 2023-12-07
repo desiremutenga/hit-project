@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/eis")
+@CrossOrigin
 public class SchoolController {
 
    final private SchoolService schoolService;

@@ -13,5 +13,7 @@ public interface TeacherRepository extends MongoRepository<Teacher, String> {
     public Teacher findBy_idIgnoreCase(String ec_number);
     public List<Teacher> findByQualificationsType(String type);
     public List<Teacher>findBySubjectTaughtSubjectIgnoreCase(String subject);
+//    @Query(value = "{'currentSchool.schoolName': ?0}",fields = "{'_id': 1, 'firstName': 1, 'currentSchool.schoolName': 1}")
+    public List<Teacher> findByCurrentSchoolSchoolNameIgnoreCase(String schoolName);
 
 }
