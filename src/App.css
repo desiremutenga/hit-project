@@ -1,12 +1,13 @@
 .leaflet-container {
   
     margin:0px;
-    height: 90vh;
-    width: 950px;
+    height: 88vh;
+    width: 945px;
   }
   .list{
     display: flex;
     list-style-type: none;
+   
   }
   .name{
     padding: 12px;

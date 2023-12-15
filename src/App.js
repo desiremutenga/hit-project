@@ -7,6 +7,8 @@ import{BrowserRouter as Router, Route,Switch} from 'react-router-dom'
 import SchoolsTable from './components/Schools';
 import Headmaster from './components/Headmasters';
 import Search from './components/Search'
+import Dropdown from './components/dropdown';
+import MapSearch from './components/mapSearch';
 function App() {
 
 
@@ -17,7 +19,11 @@ function App() {
           <Sidebar />
             <Switch>
             <Route exact path ='/'>
+              <div>
                 <Map/>
+                <Dropdown/>
+              </div>
+                
               </Route>
               <Route exact path ='/teachers'>
                 <div>
@@ -26,13 +32,24 @@ function App() {
                 </div>
               </Route>
               <Route exact path ='/schools'>
+                <div>
+                {/* <AssetsTable/> */}
                 <SchoolsTable/>
+                </div>
               </Route>
               <Route exact path ='/map'>
+              <div> 
+                <div style={{display:'flex'}}> 
+                   <Dropdown/>
+                   <MapSearch/> 
+                </div>
                 <Map/>
+              </div>
               </Route>
               <Route exact path ='/headmasters'>
-                <Headmaster/>
+                <div>
+                   <Headmaster/> 
+                </div>
               </Route>
             </Switch>
           </Router>

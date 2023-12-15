@@ -27,7 +27,7 @@ const Headmaster = () => {
   const age = 1000 * 60 * 60 * 24 * 365.25;
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: '100%', margin: '40px auto' }}>
+    <TableContainer component={Paper} sx={{ width: '86vw' }}>
       <Table>
         <TableHead>
           <StyledTableRow>
