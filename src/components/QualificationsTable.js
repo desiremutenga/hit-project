@@ -30,7 +30,7 @@ let filteredData = null
   }
   console.log(filteredData)
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: '100%', margin: '40px auto' }}>
+    <TableContainer component={Paper} sx={{ maxWidth: '100%', marginTop: '10px',marginBottom:'20px' }}>
       <Table>
         <TableHead>
           <StyledTableRow className='table-headers'>
@@ -44,10 +44,10 @@ let filteredData = null
           {filteredData &&
             filteredData.map((teacher) => (
               <StyledTableRow key={teacher._id}>
-                <StyledTableCell>{teacher.qualifications.map((type)=>(type.type)).join('\t')}</StyledTableCell>
-                <StyledTableCell>{teacher.qualifications.map((name)=>(name.name))}</StyledTableCell>
-                <StyledTableCell>{teacher.qualifications.map((institute)=>(institute.institute))}</StyledTableCell>
-                <StyledTableCell>{teacher.qualifications.map((year)=>(year.year))}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications.map((type)=>(type.type)).join(',')}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications.map((name)=>(name.name)).join(',')}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications.map((institute)=>(institute.institute)).join(',')}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications.map((year)=>(year.year)).join(',')}</StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>

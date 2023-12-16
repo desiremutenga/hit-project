@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import mapData from './data.json';
 
-const Map = () => {
+const Map = ({xy}) => {
   const [activeSchool, setActiveSchool] = useState(null);
   const position = [-18.924799, 30.185495];
   const mapConfig = {
@@ -23,10 +23,10 @@ const Map = () => {
   return (
     <MapContainer center={position} zoom={6} scrollWheelZoom={true} style={{marginTop:'2px'}}>
       <TileLayer {...mapConfig} />
-      {mapData.map((data) => (
+      {xy.map((data) => (
         <Marker
-          key={data.population}
-          position={[data.lat, data.lng]}
+          key={data._id}
+          position={[data.co_ordinates.coordinates[0],data.co_ordinates.coordinates[1]]}
         //   icon={markerIcon}
           onClick={() => {
             setActiveSchool(data);
@@ -34,22 +34,6 @@ const Map = () => {
         />
       ))}
 
-      {activeSchool && (
-        <Popup
-          position={[
-            activeSchool.lat,
-            activeSchool.lng
-          ]}
-          onClose={() => {
-            setActiveSchool(null);
-          }}
-        >
-          <div>
-            <h2>{activeSchool.population}</h2>
-            {/* Add more details or styling for your popup content */}
-          </div>
-        </Popup>
-      )}
     </MapContainer>
   );
 };

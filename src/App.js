@@ -43,7 +43,7 @@ function App() {
                    <Dropdown/>
                    <MapSearch/> 
                 </div>
-                <Map/>
+                {/* <Map/> */}
               </div>
               </Route>
               <Route exact path ='/headmasters'>
