@@ -49,7 +49,7 @@ const TeachersTable = () => {
                 <StyledTableCell>{teacher.firstName}</StyledTableCell>
                 <StyledTableCell>{teacher.lastName}</StyledTableCell>
                 <StyledTableCell>
-                  {((Date.now() - teacher.DOB) / age).toFixed(2)}
+                  {Math.floor((( new Date()-new Date(`${teacher.dob}`)) / age))}
                 </StyledTableCell>
                 <StyledTableCell>{teacher.gender}</StyledTableCell>
                 <StyledTableCell>{teacher.currentSchool.schoolName}</StyledTableCell>

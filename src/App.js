@@ -8,7 +8,7 @@ import SchoolsTable from './components/Schools';
 import Headmaster from './components/Headmasters';
 import Search from './components/Search'
 import Dropdown from './components/dropdown';
-import MapSearch from './components/mapSearch';
+import MapSearch from './components/MapSearch';
 function App() {
 
 
@@ -20,7 +20,6 @@ function App() {
             <Switch>
             <Route exact path ='/'>
               <div>
-                <Map/>
                 <Dropdown/>
               </div>
                 
@@ -41,7 +40,7 @@ function App() {
               <div> 
                 <div style={{display:'flex'}}> 
                    <Dropdown/>
-                   <MapSearch/> 
+                   {/* <MapSearch/>  */}
                 </div>
                 {/* <Map/> */}
               </div>

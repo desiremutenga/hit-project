@@ -28,7 +28,6 @@ let filteredData = null
   if(Array.isArray(teacherId)&&teacherId.length >0 && typeof teacherId[0]=== 'object'&& teacherId[0] !== null){
     filteredData = teacherId;
   }
-  console.log(filteredData)
   return (
     <TableContainer component={Paper} sx={{ maxWidth: '100%', marginTop: '10px',marginBottom:'20px' }}>
       <Table>

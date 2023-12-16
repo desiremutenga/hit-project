@@ -51,7 +51,7 @@ const Headmaster = () => {
                 <StyledTableCell>{headmasters.firstName}</StyledTableCell>
                 <StyledTableCell>{headmasters.lastName}</StyledTableCell>
                 <StyledTableCell>
-                  {((Date.now() - headmasters.DOB) / age).toFixed(2)}
+                {Math.floor((( new Date()-new Date(`${headmasters.dob}`)) / age))}
                 </StyledTableCell>
                 <StyledTableCell>{headmasters.gender}</StyledTableCell>
                 <StyledTableCell>{headmasters.qualifications.map(type=>type.type)}</StyledTableCell>
