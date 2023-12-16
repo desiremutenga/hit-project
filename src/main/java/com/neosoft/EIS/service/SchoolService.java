@@ -37,8 +37,8 @@ public class SchoolService {
         return schoolRepository.findByDistrict(district);
     }
 
-    public List<School> findSchoolByName(String name) {
-        return schoolRepository.findBySchoolNameIgnoreCase(name);
+    public List<School> findSchoolById(String id) {
+        return schoolRepository.findBy_idIgnoreCase(id);
     }
 
     public List<SchoolDto> findAllSchoolsCoordinates() {

@@ -38,8 +38,8 @@ public class SchoolController {
         return schoolService.findSchoolByDistrict(district);
     }
     @GetMapping("/school")
-    public List<School> findSchoolByName(@RequestParam String schoolName){ // display schools as you type
-        return schoolService.findSchoolByName(schoolName);
+    public List<School> findSchoolById(@RequestParam String _id){ // display schools as you type
+        return schoolService.findSchoolById(_id);
     }
     @GetMapping("/schoolCoordinates") //display all schools in Zimbabwe on the map
     public List<SchoolDto> findSchoolsByCoordinates(){
