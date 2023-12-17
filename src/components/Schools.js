@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useFetch from '../hooks/useFetch';
 import AssetsTable from './AssetsTable';
-import useSharedState from '.././hooks/useSharedState'
 import {
   Table,
   TableBody,
@@ -43,10 +42,8 @@ const SchoolsTable = () => {
           const rowData = await response.json();
 
           setSelectedRowData(rowData);
-          // const teachers = useFetch(`http://localhost:8080/eis/getTeacherBySchool?currentSchool=${selectedRowData}`)
         } catch (error) {
           console.error('Error fetching data from the database', error);
-          // Handle errors appropriately
         }
       }
     };
@@ -57,7 +54,6 @@ const SchoolsTable = () => {
   const handleRowClick = (rowId) => {
     setSelectedRowId(rowId);
   };
-
   return (
     <>
       {selectedRowData && <AssetsTable assets={selectedRowData} />}

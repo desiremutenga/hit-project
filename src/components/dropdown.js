@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Map from '../Map';
-import MapSearch from './MapSearch';
+import MapSearch from './mapSearch';
 
 const Dropdown = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [coordinates, setCoordinates] = useState([]);
+  const[total,setTotal]= useState();
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
   useEffect(() => {
-    // Fetch all schools when component mounts (no province selected)
+    // Fetch all schools when component initially renders (no province selected)
     fetch(`http://localhost:8080/eis/schoolCoordinates`)
       .then((res) => res.json())
       .then((data) => {
         setCoordinates(data.map((xy) => xy));
       });
-  }, []); // Empty dependency array to run only once on mount
+  }, []);
   useEffect(() => {
     // Fetch schools based on selected province
     if (selectedValue) {
@@ -32,29 +29,34 @@ const Dropdown = () => {
         });
     }
   }, [selectedValue]);
-
+  // fetch the total number of primaries,secondaries and universities
+  useEffect(()=>{
+    fetch('http://localhost:8080/eis/total')
+    .then((res)=> res.json()).then((data)=>{
+       setTotal(data)
+    })
+  },[])
+  console.log(total)
   return (
     <div>
         <div>
-            <FormControl fullWidth style={{ width: '143px', marginTop: '1px' }}>
-            <InputLabel id="dropdown-label">Province</InputLabel>
-            <Select labelId="dropdown-label" id="dropdown" value={selectedValue} onChange={handleChange}>
-              <MenuItem value="Harare">Harare</MenuItem>
-              <MenuItem value="Bulawayo">Bulawayo</MenuItem>
-              <MenuItem value="Mashonaland Central">Mash Central</MenuItem>
-              <MenuItem value="Mashonaland East">Mash East</MenuItem>
-              <MenuItem value="Mashonaland West">Mash West</MenuItem>
-              <MenuItem value="Manicaland">Manicaland</MenuItem>
-              <MenuItem value="Masvingo">Masvingo</MenuItem>
-              <MenuItem value="Matabeleland North">Matabeleland North</MenuItem>
-              <MenuItem value="Matabeleland South">Matabeleland South</MenuItem>
-              <MenuItem value="Midlands">Midlands</MenuItem>
-            </Select>
-          </FormControl>
-          <MapSearch/>
+            <select value={selectedValue} onChange={handleChange} className='province-select'>
+            <option value="" disabled hidden>Province</option>
+              <option value="Harare">Harare</option>
+              <option value="Bulawayo">Bulawayo</option>
+              <option value="Mashonaland Central">Mash Central</option>
+              <option value="Mashonaland East">Mash East</option>
+              <option value="Mashonaland West">Mash West</option>
+              <option value="Manicaland">Manicaland</option>
+              <option value="Masvingo">Masvingo</option>
+              <option value="Matabeleland North">Matabeleland North</option>
+              <option value="Matabeleland South">Matabeleland South</option>
+              <option value="Midlands">Midlands</option>
+            </select>
+            <MapSearch/>
 
         </div>
-      {coordinates && <Map xy={coordinates}></Map>}
+      {coordinates && <Map xy={coordinates} total={[total]}></Map>}
     </div>
   );
 };

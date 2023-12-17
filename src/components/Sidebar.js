@@ -37,7 +37,8 @@ const SidebarMenuItem = styled.li`
 
 const Sidebar = () => {
   return (
-    <SidebarContainer>
+      <div className='sidebar'>
+             <SidebarContainer>
       <SidebarHeader>EIS-System</SidebarHeader>
       <SidebarMenu>
         <SidebarMenuItem><Link to="/map">Map</Link></SidebarMenuItem>
@@ -46,6 +47,7 @@ const Sidebar = () => {
         <SidebarMenuItem><Link to="/teachers">Teachers</Link></SidebarMenuItem>
       </SidebarMenu>
     </SidebarContainer>
+      </div>
   );
 };
 

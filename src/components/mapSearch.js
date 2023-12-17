@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
 
 const MapSearch = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,22 +8,16 @@ const MapSearch = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
-    // Pass the search term to the parent component
     onSearch(searchTerm);
   };
 
   return (
-    <TextField
-      label="Search"
-      variant="outlined"
+    <input
+      type="text"
+      placeholder='Search'
       value={searchTerm}
       onChange={handleSearchChange}
-      onKeyPress={(event) => {
-        if (event.key === 'Enter') {
-          handleSearch();
-        }
-      }}
-      style={{justifyContent:'flex-end',width:'150px',marginLeft:'652px'}}
+      className='map-search'
     />
   );
 };

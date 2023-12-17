@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import mapData from './data.json';
+import SummaryTotals from './components/summary';
 
-const Map = ({xy}) => {
+
+const Map = ({xy,total}) => {
   const [activeSchool, setActiveSchool] = useState(null);
   const position = [-18.924799, 30.185495];
   const mapConfig = {
@@ -19,9 +20,10 @@ const Map = ({xy}) => {
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   });
-
   return (
-    <MapContainer center={position} zoom={6} scrollWheelZoom={true} style={{marginTop:'2px'}}>
+    <>
+     <SummaryTotals total={total}/>
+    <MapContainer center={position} zoom={6} scrollWheelZoom={true} className='map'>
       <TileLayer {...mapConfig} />
       {xy.map((data) => (
         <Marker
@@ -35,6 +37,7 @@ const Map = ({xy}) => {
       ))}
 
     </MapContainer>
+    </>
   );
 };
 

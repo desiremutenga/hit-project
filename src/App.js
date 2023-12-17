@@ -8,7 +8,7 @@ import SchoolsTable from './components/Schools';
 import Headmaster from './components/Headmasters';
 import Search from './components/Search'
 import Dropdown from './components/dropdown';
-import MapSearch from './components/MapSearch';
+
 function App() {
 
 
@@ -21,8 +21,7 @@ function App() {
             <Route exact path ='/'>
               <div>
                 <Dropdown/>
-              </div>
-                
+              </div>   
               </Route>
               <Route exact path ='/teachers'>
                 <div>
@@ -32,17 +31,12 @@ function App() {
               </Route>
               <Route exact path ='/schools'>
                 <div>
-                {/* <AssetsTable/> */}
                 <SchoolsTable/>
                 </div>
               </Route>
               <Route exact path ='/map'>
-              <div> 
-                <div style={{display:'flex'}}> 
+              <div>
                    <Dropdown/>
-                   {/* <MapSearch/>  */}
-                </div>
-                {/* <Map/> */}
               </div>
               </Route>
               <Route exact path ='/headmasters'>
