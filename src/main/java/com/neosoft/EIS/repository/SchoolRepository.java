@@ -18,4 +18,6 @@ public interface SchoolRepository extends MongoRepository<School,String> {
     public List<SchoolDto> findSchoolsCoordinates();
     @Query(value = "{'province':?0}", fields = "{ 'co_ordinates' : 1, 'schoolType' : 1, 'province' : 1, 'district' : 1}")
     public List<SchoolDto> findProvinceSchoolsCoordinates(String province);
+@Query(value = "{'province':?0,'schoolType':?1}")
+    List<School> getAllSchoolTypeInProvince(String province, String schoolType);
 }

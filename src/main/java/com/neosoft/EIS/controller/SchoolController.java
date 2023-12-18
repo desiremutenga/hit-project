@@ -1,10 +1,11 @@
 package com.neosoft.EIS.controller;
 
+import com.neosoft.EIS.collection.DTO.SchoolCountByType;
 import com.neosoft.EIS.collection.DTO.SchoolDto;
 import com.neosoft.EIS.collection.School;
 import com.neosoft.EIS.service.SchoolService;
+import org.bson.Document;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -49,5 +50,16 @@ public class SchoolController {
     public List<SchoolDto> findSchoolsByInProvinceCoordinates(@RequestParam String province){
         return  schoolService.findAllProvinceMappedSchools(province);
     }
-
+    @GetMapping("/total")
+    public List<Document> getTotal(){
+        return schoolService.getSchoolTotal();
+    }
+    @GetMapping("/schoolTypeByProvince")
+    public List<School> getAllSchoolTypeInProvince(@RequestParam String province,@RequestParam String schoolType){
+            return schoolService.getAllSchoolTypeInProvince(province,schoolType);
+    }
+    @GetMapping("/sxool")
+    public List<SchoolCountByType> groupedProvinceSchools(@RequestParam String province){
+        return  schoolService.countSchoolsByTypeAndProvince(province);
+    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class School {
     @Id
-    private String _id = "RSP01";
+    private String _id;
     @GeoSpatialIndexed
     private GeoJsonPoint co_ordinates;
     private String schoolName;
