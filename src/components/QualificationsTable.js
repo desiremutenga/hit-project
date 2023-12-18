@@ -8,7 +8,6 @@ import {
   Paper,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import { useEffect, useState } from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   borderBottom: '1px solid #e0e0e0',
@@ -22,20 +21,14 @@ const StyledTableRow = styled(TableRow)({
   },
 });
 
-const QualificationsTable = ({teacherId,qualifications}) => {
+const QualificationsTable = ({ teacherId, qualifications,id }) => {
+  // let filteredData = null;
 
-let filteredData = null
-const[data, setData] = useState(null)
-
-  if(Array.isArray(teacherId)&&teacherId.length >0 && typeof teacherId[0]=== 'object'&& teacherId[0] !== null){
-    filteredData = teacherId;
-  }
-  useEffect(()=>(
-    setData(qualifications)
-  ),[qualifications])
-console.log(data)
+  // if (Array.isArray(teacherId) && teacherId.length > 0 && typeof teacherId[0] === 'object' && teacherId[0] !== null) {
+  //   filteredData = teacherId;
+  // }
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: '100%', marginTop: '10px',marginBottom:'20px' }}>
+    <TableContainer component={Paper} sx={{ maxWidth: '100%', marginTop: '10px', marginBottom: '20px' }}>
       <Table>
         <TableHead>
           <StyledTableRow className='table-headers'>
@@ -46,13 +39,13 @@ console.log(data)
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {filteredData &&
-            filteredData.map((teacher) => (
+          {qualifications &&
+            qualifications.map((teacher) => (
               <StyledTableRow key={teacher._id}>
-                <StyledTableCell>{teacher.qualifications.map((type)=>(<li>{type.type}</li>))}</StyledTableCell>
-                <StyledTableCell>{teacher.qualifications.map((name)=>(<li>{name.name}</li>))}</StyledTableCell>
-                <StyledTableCell>{teacher.qualifications.map((institute)=>(<li>{institute.institute}</li>))}</StyledTableCell>
-                <StyledTableCell>{teacher.qualifications.map((year)=>(<li>{year.year}</li>))}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications?.map((type) => <li>{type.type}</li>)}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications?.map((name) => <li>{name.name}</li>)}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications?.map((institute) => <li>{institute.institute}</li>)}</StyledTableCell>
+                <StyledTableCell>{teacher.qualifications?.map((year) => <li>{year.year}</li>)}</StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>

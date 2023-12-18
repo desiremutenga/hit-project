@@ -52,10 +52,11 @@ const TeachersTable = () => {
   const handleRowClick = (rowId) => {
     setSelectedRowId(rowId);
   };
+  
   return (
    <>
-    {selectedRowData && <QualificationsTable qualifications={selectedRowData} />}
-    <TableContainer component={Paper} sx={{ width: '86vw' }}>
+       {selectedRowData?(<QualificationsTable qualifications={[selectedRowData]} id={selectedRowData._id} />):console.log()}
+    <TableContainer component={Paper} sx={{ width: '85vw',padding:'5px' }}>
       <Table>
         <TableHead>
           <StyledTableRow className='table-headers'>

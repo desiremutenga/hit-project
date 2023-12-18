@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 
-const MapSearch = ({ onSearch }) => {
+const MapSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-  };
-
-  const handleSearch = () => {
-    onSearch(searchTerm);
   };
 
   return (

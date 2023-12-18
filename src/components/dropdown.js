@@ -36,7 +36,16 @@ const Dropdown = () => {
        setTotal(data)
     })
   },[])
-  console.log(total)
+  useEffect(()=>{
+if(selectedValue){
+      setTotal(null)
+      fetch(`http://localhost:8080/eis/sxool?province=${selectedValue}`)
+    .then(res=>res.json())
+    .then(data=>(
+      setTotal(data)
+    ))
+}
+  },[selectedValue])
   return (
     <div>
         <div>
@@ -56,7 +65,7 @@ const Dropdown = () => {
             <MapSearch/>
 
         </div>
-      {coordinates && <Map xy={coordinates} total={[total]}></Map>}
+      {total && <Map xy={coordinates} total={[total]}></Map>}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css'
-import Map from './Map';
 import Sidebar from './components/Sidebar';
 import Teacher from './components/Teacher';
 import{BrowserRouter as Router, Route,Switch} from 'react-router-dom'
@@ -25,7 +24,7 @@ function App() {
               </Route>
               <Route exact path ='/teachers'>
                 <div>
-                <Search/>
+                {/* <Search/> */}
                 <Teacher/>
                 </div>
               </Route>
