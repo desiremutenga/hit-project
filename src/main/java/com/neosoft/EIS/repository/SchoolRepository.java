@@ -14,9 +14,9 @@ public interface SchoolRepository extends MongoRepository<School,String> {
     public List<School> findByProvince(String province);
     public List<School> findByDistrict(String district);
     public List<School> findBy_idIgnoreCase(String id);
-    @Query(value = "{}", fields = "{ 'co_ordinates' : 1, 'schoolType' : 1, 'province' : 1, 'district' : 1}")
+    @Query(value = "{}", fields = "{ 'schoolName' : 1, 'co_ordinates' : 1, 'schoolType' : 1, 'province' : 1, 'district' : 1}")
     public List<SchoolDto> findSchoolsCoordinates();
-    @Query(value = "{'province':?0}", fields = "{ 'co_ordinates' : 1, 'schoolType' : 1, 'province' : 1, 'district' : 1}")
+    @Query(value = "{'province':?0}", fields = "{ 'schoolName' : 1, 'co_ordinates' : 1, 'schoolType' : 1, 'province' : 1, 'district' : 1}")
     public List<SchoolDto> findProvinceSchoolsCoordinates(String province);
 @Query(value = "{'province':?0,'schoolType':?1}")
     List<School> getAllSchoolTypeInProvince(String province, String schoolType);

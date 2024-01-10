@@ -2,6 +2,10 @@ package com.neosoft.EIS.service;
 
 import com.neosoft.EIS.collection.Teacher;
 import com.neosoft.EIS.repository.TeacherRepository;
+import org.bson.Document;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +14,12 @@ import java.util.List;
 public class TeacherService {
 
     final private TeacherRepository teacherRepository;
+    final  private MongoTemplate mongoTemplate;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+
+    public TeacherService(TeacherRepository teacherRepository, MongoTemplate mongoTemplate) {
         this.teacherRepository = teacherRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     public Teacher saveTeacher(Teacher teacher) {
@@ -37,5 +44,18 @@ public class TeacherService {
 
     public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
+    }
+
+    public List<Document> getTeachersBySchool() {
+        UnwindOperation unwindOperation = Aggregation.unwind("currentSchool");
+        GroupOperation groupOperation = Aggregation.group("currentSchool._id").count().as("count");
+        ProjectionOperation projectionOperation = Aggregation.project()
+                .andExpression("_id").as("id")
+                .andExpression("count").as("count")
+                .andExclude("_id");
+        SortOperation sortOperation = Aggregation.sort(Sort.Direction.ASC,"id");
+        Aggregation aggregation = Aggregation.newAggregation(unwindOperation,groupOperation,projectionOperation,sortOperation);
+        List<Document> result = mongoTemplate.aggregate(aggregation,Teacher.class,Document.class).getMappedResults();
+        return  result;
     }
 }

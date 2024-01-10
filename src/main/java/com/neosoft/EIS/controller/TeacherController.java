@@ -2,6 +2,7 @@ package com.neosoft.EIS.controller;
 
 import com.neosoft.EIS.collection.Teacher;
 import com.neosoft.EIS.service.TeacherService;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +38,9 @@ public class TeacherController {
         return  teacherService.searchTeacherBySubjectTaught(subjectTaught);
 
     }
-    @GetMapping("/getTeacherBySchool")
-    public List<Teacher> getTeacherBySchool(@RequestParam String currentSchool){
-        return teacherService.getTeacherBySchool(currentSchool);
+    @GetMapping("/getTeachersBySchool")
+    public List<Document> getTeacherBySchool(){
+        return teacherService.getTeachersBySchool();
     }
     @GetMapping("/getAllTeachers")
     public List<Teacher> getAllTeachers(){
