@@ -5,6 +5,8 @@ import com.neosoft.EIS.collection.DTO.SchoolDto;
 import com.neosoft.EIS.collection.School;
 import com.neosoft.EIS.repository.SchoolRepository;
 import org.bson.Document;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
@@ -17,13 +19,14 @@ import java.util.List;
 public class SchoolService {
     private final SchoolRepository schoolRepository;
     final private MongoTemplate mongoTemplate;
-    public SchoolService(SchoolRepository schoolRepository,MongoTemplate mongoTemplate){
+    public SchoolService(SchoolRepository schoolRepository, MongoTemplate mongoTemplate) {
         this.schoolRepository = schoolRepository;
-        this.mongoTemplate =mongoTemplate;
+        this.mongoTemplate = mongoTemplate;
     }
+
     public List<School> getAllSchools() {
-        School school = new School();
-        return schoolRepository.findAll();
+       Pageable pageable = PageRequest.of(0,12,Sort.by("schoolName").ascending());
+       return schoolRepository.findAll(pageable).getContent();
     }
 
     public School saveSchool(School school) {
@@ -53,41 +56,50 @@ public class SchoolService {
     public List<SchoolDto> findAllProvinceMappedSchools(String province) {
         return schoolRepository.findProvinceSchoolsCoordinates(province);
     }
-    public List<Document> getSchoolTotal(){
+
+    public List<Document> getSchoolTotal() {
         GroupOperation groupOperation = Aggregation.group("schoolType").count().as("count");
         ProjectionOperation projectionOperation = Aggregation.project()
                 .andExpression("_id").as("schoolType")
                 .andExpression("count").as("count")
                 .andExclude("_id");
-        SortOperation sortOperation = Aggregation.sort(Sort.Direction.DESC,"schoolType");
+        SortOperation sortOperation = Aggregation.sort(Sort.Direction.DESC, "schoolType");
 
-        Aggregation aggregation = Aggregation.newAggregation(groupOperation,projectionOperation,sortOperation);
+        Aggregation aggregation = Aggregation.newAggregation(groupOperation, projectionOperation, sortOperation);
 
-        List<Document> total = mongoTemplate.aggregate(aggregation,School.class,Document.class).getMappedResults();
+        List<Document> total = mongoTemplate.aggregate(aggregation, School.class, Document.class).getMappedResults();
         return total;
     }
 
-    public List<School> getAllSchoolTypeInProvince(String province,String schoolType) {
-       return schoolRepository.getAllSchoolTypeInProvince(province,schoolType);
+    public List<School> getAllSchoolTypeInProvince(String province, String schoolType) {
+        return schoolRepository.getAllSchoolTypeInProvince(province, schoolType);
     }
 
     public List<SchoolCountByType> countSchoolsByTypeAndProvince(String province) {
-            MatchOperation matchOperation = Aggregation.match(Criteria.where("province").is(province));
-            GroupOperation groupOperation = Aggregation.group("province","schoolType").count().as("count");
-            ProjectionOperation projectionOperation = Aggregation.project()
+        MatchOperation matchOperation = Aggregation.match(Criteria.where("province").is(province));
+        GroupOperation groupOperation = Aggregation.group("province", "schoolType").count().as("count");
+        ProjectionOperation projectionOperation = Aggregation.project()
                 .andExpression("province").as("province")
                 .andExpression("schoolType").as("schoolType")
                 .andExpression("count").as("count")
                 .andExclude("_id");
 
-            SortOperation sortOperation = Aggregation.sort(Sort.Direction.DESC,"schoolType");
+        SortOperation sortOperation = Aggregation.sort(Sort.Direction.DESC, "schoolType");
 
-            Aggregation aggregation = Aggregation.newAggregation(matchOperation, groupOperation,projectionOperation,sortOperation);
+        Aggregation aggregation = Aggregation.newAggregation(matchOperation, groupOperation, projectionOperation, sortOperation);
 
-            AggregationResults<SchoolCountByType> result =
-                    mongoTemplate.aggregate(aggregation, "school", SchoolCountByType.class);
+        AggregationResults<SchoolCountByType> result =
+                mongoTemplate.aggregate(aggregation, "school", SchoolCountByType.class);
 
-            return result.getMappedResults();
+        return result.getMappedResults();
 
+    }
+
+    public List<School> getSchoolsStartWithTheSame(String regex) {
+        return schoolRepository.findBySchoolNameContainingIgnoreCase(regex);
+    }
+
+    public List<School> findSearchedSchoolRegex(String schoolName) {
+        return schoolRepository.findBySchoolNameIgnoreCaseContaining(schoolName);
     }
 }

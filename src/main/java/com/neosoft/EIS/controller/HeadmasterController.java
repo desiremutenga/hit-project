@@ -25,4 +25,12 @@ public class HeadmasterController {
     public List<Headmaster> getHeadmasters(){
         return headmasterService.getHeadmasters();
     }
+    @GetMapping("/getHeadmasterById")
+    public Headmaster getHeadmasterById(@RequestParam String id){
+        return  headmasterService.getHeadmasterById(id);
+    }
+    @GetMapping("/getHeadmasterStartsWithEcNumber")
+    public List<Headmaster> getHeadmasterStartsWithEcNumber(@RequestParam String ecNumber){
+        return  headmasterService.findHeadmasterStartsWithEcNumber(ecNumber);
+    }
 }

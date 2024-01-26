@@ -15,6 +15,7 @@ public class Headmaster {
     private String _id;
     private String firstName;
     private String lastName;
+    private String email;
     private char gender;
     private List<Qualifications> qualifications;
     private Boolean inService;

@@ -34,7 +34,6 @@ public class TeacherController {
 
     @GetMapping("/subjectTaught")
     public List<Teacher> getTeacherBySubjectTaught(@RequestParam String subjectTaught){ // search when u click drop box
-        System.out.println(subjectTaught);
         return  teacherService.searchTeacherBySubjectTaught(subjectTaught);
 
     }
@@ -45,5 +44,17 @@ public class TeacherController {
     @GetMapping("/getAllTeachers")
     public List<Teacher> getAllTeachers(){
         return teacherService.getAllTeachers();
+    }
+    @GetMapping("/getAllTeachersOnTheSameSchool")
+    public List<Teacher> getAllTeachersOnTheSameSchool(@RequestParam String regex){
+        return teacherService.getAllTeachersOnTheSameSchool(regex);
+    }
+    @GetMapping("/findTeacherBySchoolAndSubject")
+    public List<Teacher> findTeacherBySchoolAndSubject(@RequestParam String school, @RequestParam String subject){
+        return teacherService.findTeacherBySchoolAndSubject(school,subject);
+    }
+    @GetMapping("/getTeacherStartsWithEcNumber")
+    public List<Teacher> getTeacherStartsWithEcNumber(@RequestParam String ecNumber){
+        return teacherService.getTeacherStartsWithEcNumber(ecNumber);
     }
 }

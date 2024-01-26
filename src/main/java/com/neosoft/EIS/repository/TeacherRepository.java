@@ -16,4 +16,9 @@ public interface TeacherRepository extends MongoRepository<Teacher, String> {
 //    @Query(value = "{'currentSchool.schoolName': ?0}",fields = "{'_id': 1, 'firstName': 1, 'currentSchool.schoolName': 1}")
     public List<Teacher> findByCurrentSchoolSchoolNameIgnoreCase(String schoolName);
 
+    List<Teacher> findByCurrentSchoolSchoolNameStartsWithIgnoreCase(String regex);
+
+    List<Teacher> findByCurrentSchoolSchoolNameIgnoreCaseAndSubjectTaughtSubjectIgnoreCase(String school, String subject);
+
+    List<Teacher> findBy_idStartsWithIgnoreCase(String ecNumber);
 }

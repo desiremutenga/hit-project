@@ -1,5 +1,6 @@
 package com.neosoft.EIS.collection;
 
+import jakarta.annotation.Generated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class School {
     @Id
     private String _id;

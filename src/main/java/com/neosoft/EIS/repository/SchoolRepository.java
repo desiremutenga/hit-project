@@ -20,4 +20,8 @@ public interface SchoolRepository extends MongoRepository<School,String> {
     public List<SchoolDto> findProvinceSchoolsCoordinates(String province);
 @Query(value = "{'province':?0,'schoolType':?1}")
     List<School> getAllSchoolTypeInProvince(String province, String schoolType);
+
+    List<School> findBySchoolNameContainingIgnoreCase(String regex);
+
+    List<School> findBySchoolNameIgnoreCaseContaining(String schoolName);
 }

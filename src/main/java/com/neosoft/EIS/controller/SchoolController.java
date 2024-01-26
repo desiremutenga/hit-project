@@ -46,6 +46,10 @@ public class SchoolController {
     public List<SchoolDto> findSchoolsByCoordinates(){
         return  schoolService.findAllSchoolsCoordinates();
     }
+    @GetMapping("/searchedRegexSchools")
+    public List<School>findSearchedSchoolRegex(@RequestParam String schoolName){
+        return  schoolService.findSearchedSchoolRegex(schoolName);
+    }
     @GetMapping("/mappedSchoolsInProvince") // when province from drop box is chosen all schools are displayed
     public List<SchoolDto> findSchoolsByInProvinceCoordinates(@RequestParam String province){
         return  schoolService.findAllProvinceMappedSchools(province);
@@ -60,6 +64,12 @@ public class SchoolController {
     }
     @GetMapping("/sxool")
     public List<SchoolCountByType> groupedProvinceSchools(@RequestParam String province){
+        char[] letter = Character.toChars((int) (Math.random()*(90-65+1)+65));
+        System.out.println((int) (Math.random() * 1000000)+"-"+letter[0]);
         return  schoolService.countSchoolsByTypeAndProvince(province);
+    }
+    @GetMapping("/getSchoolsWithTheSameRegexExpression")
+    public List<School> getSchoolsStartsWith(@RequestParam String regex){
+        return schoolService.getSchoolsStartWithTheSame(regex);
     }
 }

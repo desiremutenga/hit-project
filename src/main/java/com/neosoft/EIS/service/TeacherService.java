@@ -3,6 +3,8 @@ package com.neosoft.EIS.service;
 import com.neosoft.EIS.collection.Teacher;
 import com.neosoft.EIS.repository.TeacherRepository;
 import org.bson.Document;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
@@ -57,5 +59,17 @@ public class TeacherService {
         Aggregation aggregation = Aggregation.newAggregation(unwindOperation,groupOperation,projectionOperation,sortOperation);
         List<Document> result = mongoTemplate.aggregate(aggregation,Teacher.class,Document.class).getMappedResults();
         return  result;
+    }
+
+    public List<Teacher> getAllTeachersOnTheSameSchool(String regex) {
+        return  teacherRepository.findByCurrentSchoolSchoolNameStartsWithIgnoreCase(regex);
+    }
+
+    public List<Teacher> findTeacherBySchoolAndSubject(String school, String subject) {
+        return teacherRepository.findByCurrentSchoolSchoolNameIgnoreCaseAndSubjectTaughtSubjectIgnoreCase(school,subject);
+    }
+
+    public List<Teacher> getTeacherStartsWithEcNumber(String ecNumber) {
+        return  teacherRepository.findBy_idStartsWithIgnoreCase(ecNumber);
     }
 }
