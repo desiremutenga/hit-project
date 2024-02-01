@@ -5,12 +5,14 @@ import com.neosoft.EIS.collection.DTO.SchoolDto;
 import com.neosoft.EIS.collection.School;
 import com.neosoft.EIS.repository.SchoolRepository;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +25,8 @@ public class SchoolService {
         this.schoolRepository = schoolRepository;
         this.mongoTemplate = mongoTemplate;
     }
-
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
     public List<School> getAllSchools() {
        Pageable pageable = PageRequest.of(0,12,Sort.by("schoolName").ascending());
        return schoolRepository.findAll(pageable).getContent();
@@ -72,6 +75,8 @@ public class SchoolService {
     }
 
     public List<School> getAllSchoolTypeInProvince(String province, String schoolType) {
+        char[] letter = Character.toChars((int) (Math.random()*(90-65+1)+65));
+//        System.out.println(passwordEncoder.encode((int) (Math.random() * 1000000)+"-"+letter[0]));
         return schoolRepository.getAllSchoolTypeInProvince(province, schoolType);
     }
 

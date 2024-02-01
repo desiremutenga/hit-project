@@ -64,8 +64,6 @@ public class SchoolController {
     }
     @GetMapping("/sxool")
     public List<SchoolCountByType> groupedProvinceSchools(@RequestParam String province){
-        char[] letter = Character.toChars((int) (Math.random()*(90-65+1)+65));
-        System.out.println((int) (Math.random() * 1000000)+"-"+letter[0]);
         return  schoolService.countSchoolsByTypeAndProvince(province);
     }
     @GetMapping("/getSchoolsWithTheSameRegexExpression")
