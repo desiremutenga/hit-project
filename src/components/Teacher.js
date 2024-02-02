@@ -31,8 +31,11 @@ const TeachersTable = () => {
   const { data } = useFetch('http://localhost:8080/eis/getAllTeachers');
   const [selectedRowId, setSelectedRowId] = useState('');
   const [selectedRowData, setSelectedRowData] = useState(null);
-
-
+  const [searchItem, setSearchItem] = useState(null);
+  const[searchedResult, setSearchedResult] = useState([])
+  const [subject,setSubject] = useState('');
+  const [school,setSchool] = useState('');
+  const [ecNumber,setEcNumber] = useState('');
   useEffect(() => {
     const fetchRowData = async () => {
       if (selectedRowId) {
@@ -52,9 +55,60 @@ const TeachersTable = () => {
   const handleRowClick = (rowId) => {
     setSelectedRowId(rowId);
   };
-  
+  const handleSearch = (event)=>{
+    setSearchItem(event.target.value);
+  }
+  const handleSubject = (event)=>{
+    setSubject(event.target.value)
+  }
+  const handleSchool = (event)=>{
+    setSchool(event.target.value)
+  }
+  const handleTransverse = ()=>{
+    fetch(`http://localhost:8080/eis/findTeacherBySchoolAndSubject?school=${school}&subject=${subject}`)
+    .then(res=>{
+      return res.json()})
+    .then(data=>{
+      setSearchedResult(data)
+      setSchool('')
+      setSubject('')
+    })
+  }
+  const handleSearchEcNumber =(event)=>{
+    setEcNumber(event.target.value)
+  }
+  useEffect(()=>{
+    fetch(`http://localhost:8080/eis/getAllTeachersOnTheSameSchool?regex=${searchItem}`)
+    .then(res=>{
+      return res.json()
+    })
+    .then(data=>{
+      setSearchedResult(data)
+    })
+
+  },[searchItem])
+  useEffect(()=>{
+    fetch(`http://localhost:8080/eis/getTeacherStartsWithEcNumber?ecNumber=${ecNumber}`)
+    .then(res=>{return res.json()})
+    .then(data=> setSearchedResult(data))
+  },[ecNumber])
   return (
    <>
+    <div>
+    <input
+      type='text'
+      placeholder='School'
+      value={searchItem}
+      onChange={handleSearch}
+   />
+      <input
+      type='text'
+      placeholder='ec-number'
+      value={ecNumber}
+      onChange={handleSearchEcNumber}
+   />
+    </div>
+ 
        {selectedRowData?(<QualificationsTable qualifications={[selectedRowData]} id={selectedRowData._id} />):console.log()}
     <TableContainer component={Paper} sx={{ width: '85vw',padding:'5px' }}>
       <Table>
@@ -71,28 +125,55 @@ const TeachersTable = () => {
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {data &&
-            data.map((teacher) => (
-              <StyledTableRow key={teacher._id}
-              onClick={() => handleRowClick(teacher._id)}
-              sx={{ backgroundColor: selectedRowId === teacher._id ? '#cfd8dc' : 'inheriant' }}>
-                <StyledTableCell>{teacher._id}</StyledTableCell>
-                <StyledTableCell>{teacher.firstName}</StyledTableCell>
-                <StyledTableCell>{teacher.lastName}</StyledTableCell>
-                <StyledTableCell>
-                  {Math.floor((( new Date()-new Date(`${teacher.dob}`)) /(1000 * 60 * 60 * 24 * 365.25)))}
-                </StyledTableCell>
-                <StyledTableCell>{teacher.gender}</StyledTableCell>
-                <StyledTableCell>{teacher.currentSchool.schoolName}</StyledTableCell>
-                <StyledTableCell>
-                  {teacher.subjectTaught.map((sub) => sub.subject).join(', ')}
-                </StyledTableCell>
-                <StyledTableCell>{teacher.enrollmentYear}</StyledTableCell>
-              </StyledTableRow>
-            ))}
+     {searchedResult.length !== 0
+              ? searchedResult &&
+                searchedResult.map((teacher) => (
+                <StyledTableRow key={teacher._id}
+                onClick={() => handleRowClick(teacher._id)}
+                sx={{ backgroundColor: selectedRowId === teacher._id ? '#cfd8dc' : 'inheriant' }}>
+                  <StyledTableCell>{teacher._id}</StyledTableCell>
+                  <StyledTableCell>{teacher.firstName}</StyledTableCell>
+                  <StyledTableCell>{teacher.lastName}</StyledTableCell>
+                  <StyledTableCell>
+                    {Math.floor((( new Date()-new Date(`${teacher.dob}`)) /(1000 * 60 * 60 * 24 * 365.25)))}
+                  </StyledTableCell>
+                  <StyledTableCell>{teacher.gender}</StyledTableCell>
+                  <StyledTableCell>{teacher.currentSchool.schoolName}</StyledTableCell>
+                  <StyledTableCell>
+                    {teacher.subjectTaught.map((sub) => sub.subject).join(', ')}
+                  </StyledTableCell>
+                  <StyledTableCell>{teacher.enrollmentYear}</StyledTableCell>
+                </StyledTableRow>
+              ))
+              : 
+              data && data.map((teacher) => (
+                  <StyledTableRow key={teacher._id}
+                  onClick={() => handleRowClick(teacher._id)}
+                  sx={{ backgroundColor: selectedRowId === teacher._id ? '#cfd8dc' : 'inheriant' }}>
+                    <StyledTableCell>{teacher._id}</StyledTableCell>
+                    <StyledTableCell>{teacher.firstName}</StyledTableCell>
+                    <StyledTableCell>{teacher.lastName}</StyledTableCell>
+                    <StyledTableCell>
+                      {Math.floor((( new Date()-new Date(`${teacher.dob}`)) /(1000 * 60 * 60 * 24 * 365.25)))}
+                    </StyledTableCell>
+                    <StyledTableCell>{teacher.gender}</StyledTableCell>
+                    <StyledTableCell>{teacher.currentSchool.schoolName}</StyledTableCell>
+                    <StyledTableCell>
+                      {teacher.subjectTaught.map((sub) => sub.subject).join(', ')}
+                    </StyledTableCell>
+                    <StyledTableCell>{teacher.enrollmentYear}</StyledTableCell>
+                  </StyledTableRow>
+                  
+                ))}
+    
         </TableBody>
       </Table>
     </TableContainer>
+    <div  className='input_fields'>
+       <input type="text" placeholder='school' value={school} onChange={handleSchool} />
+       <input type="text" placeholder='subject' value={subject} onChange={handleSubject}/>
+    </div>
+    <button type="button" onClick={handleTransverse} className='btn'>SEARCH</button>
     </>
   );
 };

@@ -3,9 +3,9 @@ import './App.css'
 import Sidebar from './components/Sidebar';
 import Teacher from './components/Teacher';
 import{BrowserRouter as Router, Route,Switch} from 'react-router-dom'
-import SchoolsTable from './components/Schools';
+import Schools from './components/Schools';
 import Headmaster from './components/Headmasters';
-import Search from './components/Search'
+import Analytics from './components/Analytics';
 import Dropdown from './components/dropdown';
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
               </Route>
               <Route exact path ='/schools'>
                 <div>
-                <SchoolsTable/>
+                <Schools/>
                 </div>
               </Route>
               <Route exact path ='/map'>
@@ -42,6 +42,11 @@ function App() {
                 <div>
                    <Headmaster/> 
                 </div>
+              </Route>
+              <Route exact path='/analytics'>
+                  <div>
+                    <Analytics/>
+                  </div>
               </Route>
             </Switch>
           </Router>

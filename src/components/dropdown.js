@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Map from '../Map';
-import MapSearch from './mapSearch';
-
 const Dropdown = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [coordinates, setCoordinates] = useState([]);
   const[total,setTotal]= useState();
+  const[searchedSchools, setSearchedSchools] = useState('');
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -46,6 +45,18 @@ if(selectedValue){
     ))
 }
   },[selectedValue])
+  const handleCoordinates = (e)=>{
+   setSearchedSchools(e.target.value)
+  }
+  useEffect(()=>{
+    fetch(`http://localhost:8080/eis/searchedRegexSchools?schoolName=${searchedSchools}`)
+    .then(res=>{
+      return res.json()
+      .then(data=>{
+        setCoordinates(data)
+      })
+    })
+  },[searchedSchools])
   return (
     <div>
         <div>
@@ -62,7 +73,13 @@ if(selectedValue){
               <option value="Matabeleland South">Matabeleland South</option>
               <option value="Midlands">Midlands</option>
             </select>
-            <MapSearch/>
+            <input
+              type='text'
+              placeholder='search'
+              value={searchedSchools}
+              onChange={handleCoordinates}
+              style={{marginLeft:'620px'}}
+            />
 
         </div>
       {total && <Map xy={coordinates} total={[total]}></Map>}

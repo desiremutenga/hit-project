@@ -39,12 +39,13 @@ const Sidebar = () => {
   return (
       <div className='sidebar'>
              <SidebarContainer>
-      <SidebarHeader>EIS-System</SidebarHeader>
+      <SidebarHeader>EIS System</SidebarHeader>
       <SidebarMenu>
         <SidebarMenuItem><Link to="/map">Map</Link></SidebarMenuItem>
         <SidebarMenuItem><Link to="/schools">Schools</Link></SidebarMenuItem>
-        <SidebarMenuItem><Link to="/headmasters">Headmasters</Link></SidebarMenuItem>
+        <SidebarMenuItem><Link to="/headmasters">Head/Principal</Link></SidebarMenuItem>
         <SidebarMenuItem><Link to="/teachers">Teachers</Link></SidebarMenuItem>
+        <SidebarMenuItem><Link to="/analytics">Analytics</Link></SidebarMenuItem>
       </SidebarMenu>
     </SidebarContainer>
       </div>

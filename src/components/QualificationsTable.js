@@ -1,12 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@mui/material';
+import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -21,13 +13,10 @@ const StyledTableRow = styled(TableRow)({
   },
 });
 
-const QualificationsTable = ({ teacherId, qualifications,id }) => {
-  // let filteredData = null;
+const QualificationsTable = ({qualifications }) => {
 
-  // if (Array.isArray(teacherId) && teacherId.length > 0 && typeof teacherId[0] === 'object' && teacherId[0] !== null) {
-  //   filteredData = teacherId;
-  // }
   return (
+    <>
     <TableContainer component={Paper} sx={{ maxWidth: '100%', marginTop: '10px', marginBottom: '20px' }}>
       <Table>
         <TableHead>
@@ -51,6 +40,7 @@ const QualificationsTable = ({ teacherId, qualifications,id }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 };
 
